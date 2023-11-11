@@ -76,7 +76,7 @@ services:
       - WEBUI_PORT=5080
     volumes:
       - qbittorrent-config:/config
-      - torrent-downloads:/downloads
+      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
 
     ## Comment/Disable below ports if VPN is enabled
     ports:
@@ -101,11 +101,11 @@ services:
       - 7878:7878
     volumes:
       - radarr-config:/config
-      - torrent-downloads:/downloads
+      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
     restart: "unless-stopped"
 
   sonarr:
-    image: linuxserver/sonarr:4.0.0-develop
+    image: ghcr.io/hotio/sonarr:latest
     container_name: sonarr
     networks:
       - mynetwork   # Comment this line if VPN is enabled
@@ -118,14 +118,14 @@ services:
       - TZ=UTC
     volumes:
       - sonarr-config:/config
-      - torrent-downloads:/downloads
+      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
 
   prowlarr:
     container_name: prowlarr
-    image: linuxserver/prowlarr:1.8.6
+    image: linuxserver/prowlarr:latest
 
     # Uncomment below if vpn is enabled
     # depends_on:               # Uncomment this line if vpn is enabled
@@ -147,7 +147,7 @@ services:
     restart: unless-stopped
 
   jellyfin:
-    image: linuxserver/jellyfin:10.8.11
+    image: jellyfin/jellyfin:latest
     container_name: jellyfin
     networks:
       - mynetwork
@@ -157,7 +157,7 @@ services:
       - TZ=UTC
     volumes:
       - jellyfin-config:/config
-      - torrent-downloads:/data
+      - /media/storage/Users/Drew/Videos/Jellyfin:/data
   # devices:
    #  - /dev/videoN:/dev/videoN # Mount GPU device 
     ports:
@@ -165,6 +165,13 @@ services:
       - 7359:7359/udp
       - 8920:8920
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   
   # Doc: https://github.com/navilg/cleanmyarr
   # cleanmyarr:
