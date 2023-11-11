@@ -76,7 +76,7 @@ services:
       - WEBUI_PORT=5080
     volumes:
       - qbittorrent-config:/config
-      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
+      - torrent-downloads:/downloads
 
     ## Comment/Disable below ports if VPN is enabled
     ports:
@@ -101,7 +101,7 @@ services:
       - 7878:7878
     volumes:
       - radarr-config:/config
-      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
+      - torrent-downloads:/downloads
     restart: "unless-stopped"
 
   sonarr:
@@ -118,7 +118,7 @@ services:
       - TZ=UTC
     volumes:
       - sonarr-config:/config
-      - /media/storage/Users/Drew/Videos/Jellyfin:/downloads
+      - torrent-downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -157,7 +157,7 @@ services:
       - TZ=UTC
     volumes:
       - jellyfin-config:/config
-      - /media/storage/Users/Drew/Videos/Jellyfin:/data
+      - torrent-downloads:/data
   # devices:
    #  - /dev/videoN:/dev/videoN # Mount GPU device 
     ports:
