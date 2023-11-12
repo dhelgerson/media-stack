@@ -165,13 +165,13 @@ services:
       - 7359:7359/udp
       - 8920:8920
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities: [gpu]
   
   # Doc: https://github.com/navilg/cleanmyarr
   # cleanmyarr:
