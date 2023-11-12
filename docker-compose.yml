@@ -146,6 +146,21 @@ services:
       - 9696:9696
     restart: unless-stopped
 
+  lidarr:
+    container_name: lidarr
+    image: ghcr.io/hotio/lidarr
+    ports:
+      - "8686:8686"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - lidarr-config:/config
+      - torrent-downloads:/data
+
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
@@ -205,6 +220,7 @@ services:
 
 volumes:
   torrent-downloads:
+  lidarr-config:
   radarr-config:
   sonarr-config:
   prowlarr-config:
