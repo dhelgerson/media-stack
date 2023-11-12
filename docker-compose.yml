@@ -159,6 +159,8 @@ services:
     volumes:
       - lidarr-config:/config
       - torrent-downloads:/data
+    networks:
+      - mynetwork
 
 
   jellyfin:
