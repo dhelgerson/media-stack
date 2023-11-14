@@ -161,6 +161,7 @@ services:
       - torrent-downloads:/data
     networks:
       - mynetwork
+    restart: unless-stopped
 
 
   jellyfin:
