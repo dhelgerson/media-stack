@@ -163,6 +163,22 @@ services:
       - mynetwork
     restart: unless-stopped
 
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    ports:
+      - "5055:5055"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - jellyseerr-config:/app/config
+#      - torrent-downloads:/data
+    networks:
+      - mynetwork
+    restart: unless-stopped
 
   jellyfin:
     image: jellyfin/jellyfin:latest
@@ -173,16 +189,20 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
+    group_add:
+      - "109"
     volumes:
       - jellyfin-config:/config
       - torrent-downloads:/data
-  # devices:
-   #  - /dev/videoN:/dev/videoN # Mount GPU device 
+      - /home/jellyfin/videos:/data/imports
+#    devices:
+#      - /dev/dri/renderD128:/dev/dri/renderD128 # Mount GPU device 
     ports:
       - 8096:8096
       - 7359:7359/udp
       - 8920:8920
     restart: unless-stopped
+
 #    deploy:
 #      resources:
 #        reservations:
@@ -229,6 +249,7 @@ volumes:
   prowlarr-config:
   jellyfin-config:
   qbittorrent-config:
+  jellyseerr-config:
   # cleanmyarr-config:
 
 networks:
