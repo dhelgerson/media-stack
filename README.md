@@ -1,5 +1,3 @@
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/linuxshots)
-
 # media-stack
 
 A stack of self-hosted media managers and streamer along with VPN. 
